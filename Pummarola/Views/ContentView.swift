@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TimerView()
+        TimerView(totalTime: 5, timeArray: [0,5])
     }
 }
 

@@ -45,7 +45,7 @@ public struct PieChartView: View {
                 ZStack{
                     ForEach(0..<self.values.count){ i in
                         PieSlice(pieSliceData: self.slices[i])
-                            .scaleEffect(self.activeIndex == i ? 1.03 : 1)
+                            
                             .animation(Animation.spring())
                     }
                     .frame(width: widthFraction * geometry.size.width, height: widthFraction * geometry.size.width)
@@ -55,8 +55,8 @@ public struct PieChartView: View {
                         .frame(width: widthFraction * geometry.size.width * innerRadiusFraction, height: widthFraction * geometry.size.width * innerRadiusFraction)
                     
                     VStack {
-                        Text("")
-                            .font(.title3)
+                        Text("\(Int(values[1]/60)):\(Int(values[1])%60 < 10 ? "0" +  String(Int(values[1])%60) : String(Int(values[1])%60))")
+                            .font(.largeTitle)
                         
                     }
                     
