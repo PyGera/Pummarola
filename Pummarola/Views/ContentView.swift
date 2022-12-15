@@ -8,8 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selection: Tab = .timer
+    
+    enum Tab {
+        case timer
+        case subjects
+    }
+    
+    
     var body: some View {
-        TimerView(totalTime: 5, timeArray: [0,5])
+        
+        TabView(selection: $selection) {
+            TimerView(totalTime: 5, timeArray: [0,5])
+                .tabItem {
+                    Label("Timer", systemImage: "clock.fill")
+                } .tag(Tab.timer)
+            
+            SubjectsView()
+                .tabItem {
+                    Label("Subjects", systemImage: "backpack")
+                } .tag(Tab.subjects)
+        } .tint(Color(red: 0.96, green: 0.44, blue: 0.5))
+        
+        
     }
 }
 

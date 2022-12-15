@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0E0290294B4F5700ADE69F /* SubjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E028F294B4F5700ADE69F /* SubjectsView.swift */; };
 		7A1DBBB42948BC52008981D9 /* PummarolaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1DBBB32948BC52008981D9 /* PummarolaApp.swift */; };
 		7A1DBBB62948BC52008981D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1DBBB52948BC52008981D9 /* ContentView.swift */; };
 		7A1DBBB82948BC54008981D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1DBBB72948BC54008981D9 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A0E028F294B4F5700ADE69F /* SubjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsView.swift; sourceTree = "<group>"; };
 		7A1DBBB02948BC52008981D9 /* Pummarola.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pummarola.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1DBBB32948BC52008981D9 /* PummarolaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PummarolaApp.swift; sourceTree = "<group>"; };
 		7A1DBBB52948BC52008981D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +40,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A0E028E294B4F0D00ADE69F /* Subjects */ = {
+			isa = PBXGroup;
+			children = (
+				7A0E028F294B4F5700ADE69F /* SubjectsView.swift */,
+			);
+			path = Subjects;
+			sourceTree = "<group>";
+		};
 		7A1DBBA72948BC52008981D9 = {
 			isa = PBXGroup;
 			children = (
@@ -76,8 +86,8 @@
 		7A1DBBC12948D5D0008981D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A0E028E294B4F0D00ADE69F /* Subjects */,
 				7A575D5E2948D74D005DED20 /* Settings */,
-				7A1DBBC32948D661008981D9 /* Stats */,
 				7A1DBBC22948D64E008981D9 /* Timer */,
 				7A1DBBB52948BC52008981D9 /* ContentView.swift */,
 			);
@@ -91,13 +101,6 @@
 				7A575D5C2948D746005DED20 /* TimerView.swift */,
 			);
 			path = Timer;
-			sourceTree = "<group>";
-		};
-		7A1DBBC32948D661008981D9 /* Stats */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Stats;
 			sourceTree = "<group>";
 		};
 		7A575D572948D708005DED20 /* PieChart */ = {
@@ -189,6 +192,7 @@
 				7A575D5D2948D746005DED20 /* TimerView.swift in Sources */,
 				7A575D5B2948D708005DED20 /* PieChartView.swift in Sources */,
 				7A1DBBB62948BC52008981D9 /* ContentView.swift in Sources */,
+				7A0E0290294B4F5700ADE69F /* SubjectsView.swift in Sources */,
 				7A1DBBB42948BC52008981D9 /* PummarolaApp.swift in Sources */,
 				7A575D5A2948D708005DED20 /* PieSliceView.swift in Sources */,
 			);

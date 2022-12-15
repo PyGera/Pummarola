@@ -30,16 +30,17 @@ struct TimerView: View {
     }
     
     func startTimer() {
+        if (flagPaused) {
+            flagPaused = false
+        }
+        
+        if (flagFirstTime) {
+            timeArray = [0, Double(totalTime)]
+            flagFirstTime = false
+            flagRunning = true
+        }
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            if (flagPaused) {
-                flagPaused = false
-            }
-            
-            if (flagFirstTime) {
-                timeArray = [0, Double(totalTime)]
-                flagFirstTime = false
-                flagRunning = true
-            }
             
             if (timeArray[1] < 2) {
                 flagFirstTime = true
@@ -56,14 +57,16 @@ struct TimerView: View {
     }
     
     func stopTimer() {
-        timer?.invalidate()
         flagFirstTime = true
         flagRunning = false
+        timer?.invalidate()
+        
     }
     
     func pauseTimer() {
-        timer?.invalidate()
         flagPaused = true
+        timer?.invalidate()
+        
     }
     
     
@@ -76,39 +79,56 @@ struct TimerView: View {
             PieChartView(values: timeArray, colors: [Color(red: 0.96, green: 0.44, blue: 0.5), Color.black], backgroundColor: Color.black, innerRadiusFraction: 0.95)
                 .padding(.leading, 75)
             
-            if flagRunning {
-                if flagPaused {
-                    Button(action: startTimer) {
-                        Text("Resume")
+            
+            HStack {
+                if flagRunning {
+                    if flagPaused {
+                        Button(action: startTimer) {
+                            Image(systemName: "play.fill")
+                        }
+                        .padding()
+                            .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                            .foregroundColor(.black)
+                            .clipShape(Capsule())
                     }
+                    
+                    
+                    else {
+                        Button(action: pauseTimer) {
+                            Image(systemName: "pause.fill")
+
+                        }
+                        .padding()
+                            .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                            .foregroundColor(.black)
+                            .clipShape(Capsule())
+                    }
+                    
+                    
+                    
+                    Button(action: stopTimer) {
+                        Image(systemName: "stop.fill")
+
+                    }
+                    .padding()
+                        .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                        .foregroundColor(.black)
+                        .clipShape(Capsule())
                 }
                 
                 else {
-                    Button(action: pauseTimer) {
-                        Text("Pause")
+                    Button(action: startTimer) {
+                        Image(systemName: "play.fill")
                     }
+                    .padding()
+                        .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                        .foregroundColor(.black)
+                        .clipShape(Capsule())
                 }
                 
-                
-                
-                Button(action: stopTimer) {
-                    Text("Stop")
-                }
             }
             
-            else {
-                Button(action: startTimer) {
-                    Text("Start")
-                }
-            }
-            
-            Button("Set Time") {
-                showingAlert = true
-            }.alert(isPresented: $showingAlert) {
-                Alert(title: Text("Important message"), message: Text("Wear sunscreen"), dismissButton: .default(Text("Got it!")))
-            }
-            
-            
+            Spacer()
                 
             
         }
