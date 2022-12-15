@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A0E0290294B4F5700ADE69F /* SubjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E028F294B4F5700ADE69F /* SubjectsView.swift */; };
+		7A0E0293294B512A00ADE69F /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E0292294B512A00ADE69F /* Subject.swift */; };
+		7A0E0295294B52F800ADE69F /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E0294294B52F800ADE69F /* ModelData.swift */; };
+		7A0E029A294B54A300ADE69F /* SubjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E0299294B54A300ADE69F /* SubjectList.swift */; };
+		7A0E029C294B55B200ADE69F /* SubjectCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0E029B294B55B200ADE69F /* SubjectCreate.swift */; };
+		7A0E029F294B68B500ADE69F /* ColorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A0E029E294B68B500ADE69F /* ColorKit */; };
 		7A1DBBB42948BC52008981D9 /* PummarolaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1DBBB32948BC52008981D9 /* PummarolaApp.swift */; };
 		7A1DBBB62948BC52008981D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1DBBB52948BC52008981D9 /* ContentView.swift */; };
 		7A1DBBB82948BC54008981D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1DBBB72948BC54008981D9 /* Assets.xcassets */; };
@@ -18,7 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7A0E028F294B4F5700ADE69F /* SubjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsView.swift; sourceTree = "<group>"; };
+		7A0E0292294B512A00ADE69F /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		7A0E0294294B52F800ADE69F /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		7A0E0296294B542F00ADE69F /* Pummarola.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pummarola.entitlements; sourceTree = "<group>"; };
+		7A0E0299294B54A300ADE69F /* SubjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectList.swift; sourceTree = "<group>"; };
+		7A0E029B294B55B200ADE69F /* SubjectCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectCreate.swift; sourceTree = "<group>"; };
 		7A1DBBB02948BC52008981D9 /* Pummarola.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pummarola.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1DBBB32948BC52008981D9 /* PummarolaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PummarolaApp.swift; sourceTree = "<group>"; };
 		7A1DBBB52948BC52008981D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -34,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0E029F294B68B500ADE69F /* ColorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,9 +52,19 @@
 		7A0E028E294B4F0D00ADE69F /* Subjects */ = {
 			isa = PBXGroup;
 			children = (
-				7A0E028F294B4F5700ADE69F /* SubjectsView.swift */,
+				7A0E0299294B54A300ADE69F /* SubjectList.swift */,
+				7A0E029B294B55B200ADE69F /* SubjectCreate.swift */,
 			);
 			path = Subjects;
+			sourceTree = "<group>";
+		};
+		7A0E0291294B50FA00ADE69F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7A0E0292294B512A00ADE69F /* Subject.swift */,
+				7A0E0294294B52F800ADE69F /* ModelData.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		7A1DBBA72948BC52008981D9 = {
@@ -67,6 +86,8 @@
 		7A1DBBB22948BC52008981D9 /* Pummarola */ = {
 			isa = PBXGroup;
 			children = (
+				7A0E0296294B542F00ADE69F /* Pummarola.entitlements */,
+				7A0E0291294B50FA00ADE69F /* Model */,
 				7A1DBBC12948D5D0008981D9 /* Views */,
 				7A1DBBB32948BC52008981D9 /* PummarolaApp.swift */,
 				7A1DBBB72948BC54008981D9 /* Assets.xcassets */,
@@ -135,6 +156,9 @@
 			dependencies = (
 			);
 			name = Pummarola;
+			packageProductDependencies = (
+				7A0E029E294B68B500ADE69F /* ColorKit */,
+			);
 			productName = Pummarola;
 			productReference = 7A1DBBB02948BC52008981D9 /* Pummarola.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +187,9 @@
 				Base,
 			);
 			mainGroup = 7A1DBBA72948BC52008981D9;
+			packageReferences = (
+				7A0E029D294B68B500ADE69F /* XCRemoteSwiftPackageReference "ColorKit" */,
+			);
 			productRefGroup = 7A1DBBB12948BC52008981D9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -189,10 +216,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0E029A294B54A300ADE69F /* SubjectList.swift in Sources */,
 				7A575D5D2948D746005DED20 /* TimerView.swift in Sources */,
 				7A575D5B2948D708005DED20 /* PieChartView.swift in Sources */,
+				7A0E029C294B55B200ADE69F /* SubjectCreate.swift in Sources */,
+				7A0E0293294B512A00ADE69F /* Subject.swift in Sources */,
 				7A1DBBB62948BC52008981D9 /* ContentView.swift in Sources */,
-				7A0E0290294B4F5700ADE69F /* SubjectsView.swift in Sources */,
+				7A0E0295294B52F800ADE69F /* ModelData.swift in Sources */,
 				7A1DBBB42948BC52008981D9 /* PummarolaApp.swift in Sources */,
 				7A575D5A2948D708005DED20 /* PieSliceView.swift in Sources */,
 			);
@@ -320,6 +350,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pummarola/Pummarola.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pummarola/Preview Content\"";
@@ -349,6 +380,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pummarola/Pummarola.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pummarola/Preview Content\"";
@@ -395,6 +427,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A0E029D294B68B500ADE69F /* XCRemoteSwiftPackageReference "ColorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Boris-Em/ColorKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7A0E029E294B68B500ADE69F /* ColorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A0E029D294B68B500ADE69F /* XCRemoteSwiftPackageReference "ColorKit" */;
+			productName = ColorKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7A1DBBA82948BC52008981D9 /* Project object */;
 }

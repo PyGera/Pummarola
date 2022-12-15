@@ -24,7 +24,7 @@ struct ContentView: View {
                     Label("Timer", systemImage: "clock.fill")
                 } .tag(Tab.timer)
             
-            SubjectsView()
+            SubjectList()
                 .tabItem {
                     Label("Subjects", systemImage: "backpack")
                 } .tag(Tab.subjects)
