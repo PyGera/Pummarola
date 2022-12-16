@@ -21,15 +21,15 @@ struct TimerView: View {
     @State var subjectSelector: Subject 
 
     
-    init(totalTime: Int, timeArray: [Double]) {
-        self.totalTime = totalTime
-        self.timeArray = timeArray
+    init() {
         self.timer = nil
         self.flagFirstTime = true
         self.flagRunning = false
         self.flagPaused = false
         self.showingAlert = false
-        self.subjectSelector = Subject(id: 0, name: "", color: [0, 0, 0], studyDays: [], study: 0, relax: 0, total: 0, longRelax: 0)
+        self.subjectSelector = Subject(id: 100, name: "None", color: [0.96, 0.44, 0.5], studyDays: [], study: 25, relax: 5, total: 4, longRelax: 30)
+        self.totalTime = 25*60
+        self.timeArray = [0,Double(25*60)]
     }
     
     func startTimer() {
@@ -84,6 +84,13 @@ struct TimerView: View {
             }
             
             Picker ("Subject", selection: $subjectSelector) {
+                HStack {
+                    Circle()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color(red: 0.96, green: 0.44, blue: 0.5))
+                    Text("None").font(.headline).bold()
+                } .tag(Subject(id: 100, name: "None", color: [0.96, 0.44, 0.5], studyDays: [], study: 25, relax: 5, total: 4, longRelax: 30))
+                
                 ForEach(modelData.subjects) { subject in
                         HStack {
                             Circle()
@@ -95,8 +102,13 @@ struct TimerView: View {
                 }
             } .pickerStyle(.wheel)
             
+                .onChange(of: subjectSelector) { subject in
+                    timeArray = [0, Double(subject.study*60)]
+                    totalTime = subject.study*60
+                }
             
-            PieChartView(values: timeArray, colors: [Color(red: 0.96, green: 0.44, blue: 0.5), Color(red: 0.96, green: 0.44, blue: 0.5).opacity(0.5)], backgroundColor: Color.black, innerRadiusFraction: 0.95)
+            
+            PieChartView(values: timeArray, colors:  [Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]), Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]).opacity(0.5)], backgroundColor: Color.black, innerRadiusFraction: 0.95)
                 .padding(.leading, 75)
             
             
@@ -107,7 +119,7 @@ struct TimerView: View {
                             Image(systemName: "play.fill")
                         }
                         .padding()
-                            .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                            .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
                             .foregroundColor(.black)
                             .clipShape(Capsule())
                     }
@@ -119,7 +131,7 @@ struct TimerView: View {
 
                         }
                         .padding()
-                            .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                            .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
                             .foregroundColor(.black)
                             .clipShape(Capsule())
                     }
@@ -131,7 +143,7 @@ struct TimerView: View {
 
                     }
                     .padding()
-                        .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                        .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
                         .foregroundColor(.black)
                         .clipShape(Capsule())
                 }
@@ -141,7 +153,7 @@ struct TimerView: View {
                         Image(systemName: "play.fill")
                     }
                     .padding()
-                        .background(Color(red: 0.96, green: 0.44, blue: 0.5))
+                        .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
                         .foregroundColor(.black)
                         .clipShape(Capsule())
                 }
@@ -160,7 +172,7 @@ struct TimerView: View {
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(totalTime: 5, timeArray: [0,5])
+        TimerView()
             .environmentObject(ModelData())
     }
 }
