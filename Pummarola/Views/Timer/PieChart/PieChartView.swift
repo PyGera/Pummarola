@@ -18,6 +18,7 @@ public struct PieChartView: View {
     
     @State private var activeIndex: Int = -1
     
+    
     var slices: [PieSliceData] {
         let sum = values.reduce(0, +)
         var endDeg: Double = 0
@@ -46,14 +47,15 @@ public struct PieChartView: View {
                     ForEach(0..<self.values.count){ i in
                         PieSlice(pieSliceData: self.slices[i])
                             
-                            .animation(Animation.spring())
+                        
                     }
                     .frame(width: widthFraction * geometry.size.width, height: widthFraction * geometry.size.width)
+                    
                     
                     Circle()
                         .fill(self.backgroundColor)
                         .frame(width: widthFraction * geometry.size.width * innerRadiusFraction, height: widthFraction * geometry.size.width * innerRadiusFraction)
-                    
+                        // .opacity(0.5).animation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true))
                     VStack {
                         Text("\(Int(values[1]/60)):\(Int(values[1])%60 < 10 ? "0" +  String(Int(values[1])%60) : String(Int(values[1])%60))")
                             .font(.largeTitle)

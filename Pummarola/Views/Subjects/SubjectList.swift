@@ -16,7 +16,7 @@ struct SubjectList: View {
             List {
                 ForEach(modelData.subjects) { subject in
                     NavigationLink {
-                        
+                        SubjectDetails(subject: subject)
                     } label : {
                         HStack {
                             Circle()

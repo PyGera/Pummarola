@@ -32,6 +32,7 @@ struct PieSlice: View {
                     
                 }
                 .fill(pieSliceData.color)
+
                 
 //                if Int(pieSliceData.text.split(separator: "%")[0]) ?? 0 >= 5 {
 //                    Text(pieSliceData.text)

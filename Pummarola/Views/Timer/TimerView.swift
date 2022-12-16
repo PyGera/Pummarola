@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TimerView: View {
-    
+    @EnvironmentObject var modelData: ModelData
     @State var totalTime: Int
     @State var timeArray: [Double]
     
@@ -18,6 +18,7 @@ struct TimerView: View {
     @State var flagPaused: Bool
     
     @State private var showingAlert = false
+    @State var subjectSelector: Subject 
 
     
     init(totalTime: Int, timeArray: [Double]) {
@@ -27,9 +28,12 @@ struct TimerView: View {
         self.flagFirstTime = true
         self.flagRunning = false
         self.flagPaused = false
+        self.showingAlert = false
+        self.subjectSelector = Subject(id: 0, name: "", color: [0, 0, 0], studyDays: [], study: 0, relax: 0, total: 0, longRelax: 0)
     }
     
     func startTimer() {
+        
         if (flagPaused) {
             flagPaused = false
         }
@@ -74,9 +78,25 @@ struct TimerView: View {
     
     var body: some View {
         VStack (alignment: .center) {
+            HStack {
+                Text("Timer").font(.largeTitle).bold()
+                Spacer()
+            }
+            
+            Picker ("Subject", selection: $subjectSelector) {
+                ForEach(modelData.subjects) { subject in
+                        HStack {
+                            Circle()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color(red: subject.color[0], green: subject.color[1], blue: subject.color[2]))
+                            Text(subject.name).font(.headline).bold()
+                        } .tag(subject)
+                    
+                }
+            } .pickerStyle(.wheel)
             
             
-            PieChartView(values: timeArray, colors: [Color(red: 0.96, green: 0.44, blue: 0.5), Color.black], backgroundColor: Color.black, innerRadiusFraction: 0.95)
+            PieChartView(values: timeArray, colors: [Color(red: 0.96, green: 0.44, blue: 0.5), Color(red: 0.96, green: 0.44, blue: 0.5).opacity(0.5)], backgroundColor: Color.black, innerRadiusFraction: 0.95)
                 .padding(.leading, 75)
             
             
@@ -127,11 +147,12 @@ struct TimerView: View {
                 }
                 
             }
+            .padding()
             
             Spacer()
                 
             
-        }
+        }.padding()
         
             
     }
@@ -140,5 +161,6 @@ struct TimerView: View {
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
         TimerView(totalTime: 5, timeArray: [0,5])
+            .environmentObject(ModelData())
     }
 }

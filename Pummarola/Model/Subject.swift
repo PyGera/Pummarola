@@ -8,7 +8,21 @@
 import Foundation
 import SwiftUI
 
-struct Subject : Identifiable, Codable {
+struct Subject : Identifiable, Codable, Hashable {
+    static func == (lhs: Subject, rhs: Subject) -> Bool {
+        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.color == rhs.color && lhs.study == rhs.study && lhs.relax == rhs.relax && lhs.total == rhs.total && lhs.longRelax == rhs.longRelax
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+        hasher.combine(color)
+        hasher.combine(study)
+        hasher.combine(relax)
+        hasher.combine(total)
+        hasher.combine(longRelax)
+    }
+    
     var id: Int
     var name: String
     var color: [Double]

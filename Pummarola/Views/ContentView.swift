@@ -19,7 +19,7 @@ struct ContentView: View {
     var body: some View {
         
         TabView(selection: $selection) {
-            TimerView(totalTime: 5, timeArray: [0,5])
+            TimerView(totalTime: 1500, timeArray: [0,1500])
                 .tabItem {
                     Label("Timer", systemImage: "clock.fill")
                 } .tag(Tab.timer)
@@ -37,5 +37,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(ModelData())
     }
 }
