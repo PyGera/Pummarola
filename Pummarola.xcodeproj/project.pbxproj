@@ -20,7 +20,40 @@
 		7A575D5A2948D708005DED20 /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A575D582948D708005DED20 /* PieSliceView.swift */; };
 		7A575D5B2948D708005DED20 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A575D592948D708005DED20 /* PieChartView.swift */; };
 		7A575D5D2948D746005DED20 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A575D5C2948D746005DED20 /* TimerView.swift */; };
+		7A9653C829511846006BF118 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9653C729511846006BF118 /* WidgetKit.framework */; };
+		7A9653CA29511846006BF118 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9653C929511846006BF118 /* SwiftUI.framework */; };
+		7A9653CD29511846006BF118 /* LiveActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9653CC29511846006BF118 /* LiveActivityBundle.swift */; };
+		7A9653CF29511846006BF118 /* LiveActivityLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9653CE29511846006BF118 /* LiveActivityLiveActivity.swift */; };
+		7A9653D129511846006BF118 /* LiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9653D029511846006BF118 /* LiveActivity.swift */; };
+		7A9653D429511848006BF118 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A9653D329511848006BF118 /* Assets.xcassets */; };
+		7A9653D629511848006BF118 /* LiveActivity.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7A9653D229511846006BF118 /* LiveActivity.intentdefinition */; };
+		7A9653D729511848006BF118 /* LiveActivity.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7A9653D229511846006BF118 /* LiveActivity.intentdefinition */; };
+		7A9653DA29511848006BF118 /* LiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7A9653C529511846006BF118 /* LiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A9653D829511848006BF118 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A1DBBA82948BC52008981D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A9653C429511846006BF118;
+			remoteInfo = LiveActivityExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7A9653DE29511848006BF118 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7A9653DA29511848006BF118 /* LiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7A0E0292294B512A00ADE69F /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
@@ -37,6 +70,16 @@
 		7A575D582948D708005DED20 /* PieSliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
 		7A575D592948D708005DED20 /* PieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		7A575D5C2948D746005DED20 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		7A9653C02950D785006BF118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7A9653C529511846006BF118 /* LiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A9653C729511846006BF118 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7A9653C929511846006BF118 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7A9653CC29511846006BF118 /* LiveActivityBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityBundle.swift; sourceTree = "<group>"; };
+		7A9653CE29511846006BF118 /* LiveActivityLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityLiveActivity.swift; sourceTree = "<group>"; };
+		7A9653D029511846006BF118 /* LiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivity.swift; sourceTree = "<group>"; };
+		7A9653D229511846006BF118 /* LiveActivity.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = LiveActivity.intentdefinition; sourceTree = "<group>"; };
+		7A9653D329511848006BF118 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A9653D529511848006BF118 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +88,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0E029F294B68B500ADE69F /* ColorKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A9653C229511846006BF118 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A9653CA29511846006BF118 /* SwiftUI.framework in Frameworks */,
+				7A9653C829511846006BF118 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				7A1DBBB22948BC52008981D9 /* Pummarola */,
+				7A9653CB29511846006BF118 /* LiveActivity */,
+				7A9653C629511846006BF118 /* Frameworks */,
 				7A1DBBB12948BC52008981D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				7A1DBBB02948BC52008981D9 /* Pummarola.app */,
+				7A9653C529511846006BF118 /* LiveActivityExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +144,7 @@
 		7A1DBBB22948BC52008981D9 /* Pummarola */ = {
 			isa = PBXGroup;
 			children = (
+				7A9653C02950D785006BF118 /* Info.plist */,
 				7A0E0296294B542F00ADE69F /* Pummarola.entitlements */,
 				7A0E0291294B50FA00ADE69F /* Model */,
 				7A1DBBC12948D5D0008981D9 /* Views */,
@@ -143,6 +199,28 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		7A9653C629511846006BF118 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A9653C729511846006BF118 /* WidgetKit.framework */,
+				7A9653C929511846006BF118 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A9653CB29511846006BF118 /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				7A9653CC29511846006BF118 /* LiveActivityBundle.swift */,
+				7A9653CE29511846006BF118 /* LiveActivityLiveActivity.swift */,
+				7A9653D029511846006BF118 /* LiveActivity.swift */,
+				7A9653D229511846006BF118 /* LiveActivity.intentdefinition */,
+				7A9653D329511848006BF118 /* Assets.xcassets */,
+				7A9653D529511848006BF118 /* Info.plist */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,10 +231,12 @@
 				7A1DBBAC2948BC52008981D9 /* Sources */,
 				7A1DBBAD2948BC52008981D9 /* Frameworks */,
 				7A1DBBAE2948BC52008981D9 /* Resources */,
+				7A9653DE29511848006BF118 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7A9653D929511848006BF118 /* PBXTargetDependency */,
 			);
 			name = Pummarola;
 			packageProductDependencies = (
@@ -166,6 +246,23 @@
 			productReference = 7A1DBBB02948BC52008981D9 /* Pummarola.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7A9653C429511846006BF118 /* LiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A9653DB29511848006BF118 /* Build configuration list for PBXNativeTarget "LiveActivityExtension" */;
+			buildPhases = (
+				7A9653C129511846006BF118 /* Sources */,
+				7A9653C229511846006BF118 /* Frameworks */,
+				7A9653C329511846006BF118 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiveActivityExtension;
+			productName = LiveActivityExtension;
+			productReference = 7A9653C529511846006BF118 /* LiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -173,11 +270,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					7A1DBBAF2948BC52008981D9 = {
 						CreatedOnToolsVersion = 14.1;
+					};
+					7A9653C429511846006BF118 = {
+						CreatedOnToolsVersion = 14.2;
 					};
 				};
 			};
@@ -198,6 +298,7 @@
 			projectRoot = "";
 			targets = (
 				7A1DBBAF2948BC52008981D9 /* Pummarola */,
+				7A9653C429511846006BF118 /* LiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -209,6 +310,14 @@
 			files = (
 				7A1DBBBB2948BC54008981D9 /* Preview Assets.xcassets in Resources */,
 				7A1DBBB82948BC54008981D9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A9653C329511846006BF118 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A9653D429511848006BF118 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,10 +338,30 @@
 				7A0E0295294B52F800ADE69F /* ModelData.swift in Sources */,
 				7A1DBBB42948BC52008981D9 /* PummarolaApp.swift in Sources */,
 				7A575D5A2948D708005DED20 /* PieSliceView.swift in Sources */,
+				7A9653D729511848006BF118 /* LiveActivity.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A9653C129511846006BF118 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A9653CD29511846006BF118 /* LiveActivityBundle.swift in Sources */,
+				7A9653D129511846006BF118 /* LiveActivity.swift in Sources */,
+				7A9653CF29511846006BF118 /* LiveActivityLiveActivity.swift in Sources */,
+				7A9653D629511848006BF118 /* LiveActivity.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7A9653D929511848006BF118 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A9653C429511846006BF118 /* LiveActivityExtension */;
+			targetProxy = 7A9653D829511848006BF118 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7A1DBBBC2948BC54008981D9 /* Debug */ = {
@@ -352,6 +481,7 @@
 		7A1DBBBF2948BC54008981D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Pummarola/Pummarola.entitlements;
@@ -361,6 +491,7 @@
 				DEVELOPMENT_TEAM = 9699N523L9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pummarola/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -382,6 +513,7 @@
 		7A1DBBC02948BC54008981D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Pummarola/Pummarola.entitlements;
@@ -391,6 +523,7 @@
 				DEVELOPMENT_TEAM = 9699N523L9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pummarola/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -403,6 +536,62 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.federicogerardi.Pummarola;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7A9653DC29511848006BF118 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9699N523L9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.federicogerardi.Pummarola.LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A9653DD29511848006BF118 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9699N523L9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = LiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.federicogerardi.Pummarola.LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -426,6 +615,15 @@
 			buildConfigurations = (
 				7A1DBBBF2948BC54008981D9 /* Debug */,
 				7A1DBBC02948BC54008981D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A9653DB29511848006BF118 /* Build configuration list for PBXNativeTarget "LiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A9653DC29511848006BF118 /* Debug */,
+				7A9653DD29511848006BF118 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

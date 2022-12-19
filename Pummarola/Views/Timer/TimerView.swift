@@ -13,7 +13,7 @@ struct TimerView: View {
     @State var totalTime: Int
     @State var timeArray: [Double]
     
-    @State var timer: Timer?
+    @State var timer: Timer?// DispatchSourceTimer? // Timer?
     @State var flagFirstTime: Bool
     @State var flagRunning: Bool
     @State var flagPaused: Bool
@@ -39,14 +39,20 @@ struct TimerView: View {
         self.currentTimer = 0
         self.todayIndex = 0
         self.center = UNUserNotificationCenter.current()
+        
+        UserDefaults(suiteName: "group.com.federicogerardi.Pummarola")?.set(timeArray, forKey: "timeArray")
     }
     
     func startTimer() {
         
+        
+        
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             // handle the user's response
         }
-
+        
+        
+        
         
         if (flagPaused) {
             flagPaused = false
@@ -76,62 +82,93 @@ struct TimerView: View {
         let content = UNMutableNotificationContent()
         content.title = "It'relax time"
         content.body = "Have a coffee or sleep for a while"
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study*60), repeats: false)
         let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
         center.add(request) { (error) in
            if let error = error {
                print("Error scheduling notification: \(error)")
            }
         }
-                
+        
+//        let queue = DispatchQueue(label: "group.com.federicogerardi.Pummarola", qos: .background)
+//
+//        timer = DispatchSource.makeTimerSource(flags: .strict, queue: queue)
+//
+//        timer!.schedule(deadline: .now(), repeating: .seconds(1))
+//
+//        timer!.setEventHandler {
+//
+//        }
+//
+//        timer!.resume()
+    
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            
             if (timeArray[1] < 2) {
                 let content = UNMutableNotificationContent()
-                
+
                 if (currentTimer == 0) {
                     content.title = "Go back to study"
                     content.body = "It's time to go back to work"
                     timeArray = [0, Double(modelData.subjects[subjectSelector].relax*60)]
-                    totalTime = modelData.subjects[subjectSelector].relax
+                    totalTime = modelData.subjects[subjectSelector].relax*60
                     currentTimer = 1
                     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(totalTime), repeats: false)
                     let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
-                    
+
                     center.add(request) { (error) in
                        if let error = error {
                            print("Error scheduling notification: \(error)")
                        }
                     }
+
+
                 }
                 else {
                     content.title = "It'relax time"
                     content.body = "Take a coffee or sleep for a while"
                     timeArray = [0, Double(modelData.subjects[subjectSelector].study*60)]
-                    totalTime = modelData.subjects[subjectSelector].study
+                    totalTime = modelData.subjects[subjectSelector].study*60
                     currentTimer = 0
                     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(totalTime), repeats: false)
                     let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
-                    
+
                     center.add(request) { (error) in
                        if let error = error {
                            print("Error scheduling notification: \(error)")
                        }
                    }
                 }
+
+                 uploadSubjects(subjects: modelData.subjects)
             }
-            
+
             if (currentTimer == 0) {
                 modelData.subjects[subjectSelector].studyDays[todayIndex].study += 1
-                uploadSubjects(subjects: modelData.subjects)
+
             }
             else {
                 modelData.subjects[subjectSelector].studyDays[todayIndex].relax += 1
-                uploadSubjects(subjects: modelData.subjects)
             }
-                timeArray[0] += 1
-                timeArray[1] -= 1
+            
+            let coso0 : [Double] = UserDefaults(suiteName: "group.com.federicogerardi.Pummarola")?.object(forKey: "timeArray") as! [Double]
+            let coso : [Double] = [coso0[0] + 1.0,  coso0[1] - 1.0]
+            
+            UserDefaults(suiteName: "group.com.federicogerardi.Pummarola")!.set(coso, forKey: "timeArray")
+            timeArray = UserDefaults(suiteName: "group.com.federicogerardi.Pummarola")!.object(forKey: "timeArray") as! [Double]
+
+                print(timeArray)
+
             })
+        
+        
+        
+//        queue.async {
+//            var i = 0
+//            while(flagRunning) {
+//                print(i)
+//                i+=1
+//            }
+//        }
         
         
         
@@ -182,6 +219,7 @@ struct TimerView: View {
                 .onChange(of: subjectSelector) { subject in
                     timeArray = [0, Double(modelData.subjects[subject].study*60)]
                     totalTime = modelData.subjects[subject].study*60
+                    UserDefaults(suiteName: "group.com.federicogerardi.Pummarola")?.set(timeArray, forKey: "timeArray")
                 }
             
             
