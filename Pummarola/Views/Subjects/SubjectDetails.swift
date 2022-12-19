@@ -37,25 +37,25 @@ struct SubjectDetails: View {
                 HStack {
                     Text("Study hours today").font(.headline)
                     Spacer()
-                    Text("4.5 hours").font(.headline).foregroundColor(.accentColor)
+                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in result += Double((day.study/60)/60)}) hours").font(.headline).foregroundColor(.accentColor)
                 }
                 
                 HStack {
                     Text("Relax hours today").font(.headline)
                     Spacer()
-                    Text("0.5 hours").font(.headline).foregroundColor(.accentColor)
+                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in if (Calendar.current.startOfDay(for: day.today) == Calendar.current.startOfDay(for: Date())) { result += Double((day.relax / 60)/60) }}) hours").font(.headline).foregroundColor(.accentColor)
                 }
                 
                 HStack {
                     Text("Total study hours").font(.headline)
                     Spacer()
-                    Text("34 hours").font(.headline).foregroundColor(.accentColor)
+                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in result += Double((day.study / 60)/60) }) hours").font(.headline).foregroundColor(.accentColor)
                 }
                 
                 HStack {
                     Text("Total relax hours").font(.headline)
                     Spacer()
-                    Text("3 hours").font(.headline).foregroundColor(.accentColor)
+                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in result += Double((day.relax / 60)/60) }) hours").font(.headline).foregroundColor(.accentColor)
                 }
                 
                 Button(action: deleteSubject) {

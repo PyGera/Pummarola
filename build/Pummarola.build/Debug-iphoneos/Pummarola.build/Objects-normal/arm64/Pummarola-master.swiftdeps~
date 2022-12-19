@@ -1,0 +1,15 @@
+version: "Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)"
+options: "8f901a998d2c1edf06c8189c238f2651a85d05307d94d716738e677799203060"
+build_start_time: [1671292531, 102396011]
+build_end_time: [1671292531, 146900177]
+inputs:
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Model/ModelData.swift": !private [1671109848, 286686658]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Model/Subject.swift": !private [1671208347, 13702154]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/PummarolaApp.swift": !private [1671109848, 278875350]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Views/ContentView.swift": !private [1671210546, 272348403]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Views/Subjects/SubjectCreate.swift": !private [1671115849, 704929828]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Views/Subjects/SubjectDetails.swift": !private [1671119340, 206414699]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Views/Subjects/SubjectList.swift": !private [1671119386, 14158487]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Views/Timer/PieChart/PieChartView.swift": !private [1671197304, 373023033]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Views/Timer/PieChart/PieSliceView.swift": !private [1671196699, 415426254]
+  "/Users/federico/Tehc/xCode/Pummarola/Pummarola/Views/Timer/TimerView.swift": !private [1671210546, 290393352]

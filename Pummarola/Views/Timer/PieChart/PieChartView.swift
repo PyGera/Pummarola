@@ -18,6 +18,8 @@ public struct PieChartView: View {
     
     @State private var activeIndex: Int = -1
     
+    public var currentTimer: String
+    
     
     var slices: [PieSliceData] {
         let sum = values.reduce(0, +)
@@ -32,12 +34,13 @@ public struct PieChartView: View {
         return tempSlices
     }
     
-    public init(values:[Double], colors: [Color] = [Color.blue, Color.green, Color.orange], backgroundColor: Color = Color(red: 21 / 255, green: 24 / 255, blue: 30 / 255, opacity: 1.0), widthFraction: CGFloat = 0.75, innerRadiusFraction: CGFloat = 0.60){
+    public init(values:[Double], currentTimer: String, colors: [Color] = [Color.blue, Color.green, Color.orange], backgroundColor: Color = Color(red: 21 / 255, green: 24 / 255, blue: 30 / 255, opacity: 1.0), widthFraction: CGFloat = 0.75, innerRadiusFraction: CGFloat = 0.60){
         self.values = values
         self.colors = colors
         self.backgroundColor = backgroundColor
         self.widthFraction = widthFraction
         self.innerRadiusFraction = innerRadiusFraction
+        self.currentTimer = currentTimer
     }
     
     public var body: some View {
@@ -55,8 +58,8 @@ public struct PieChartView: View {
                     Circle()
                         .fill(self.backgroundColor)
                         .frame(width: widthFraction * geometry.size.width * innerRadiusFraction, height: widthFraction * geometry.size.width * innerRadiusFraction)
-                        // .opacity(0.5).animation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: true))
                     VStack {
+                        Text(currentTimer).font(.title).foregroundColor(colors[0])
                         Text("\(Int(values[1]/60)):\(Int(values[1])%60 < 10 ? "0" +  String(Int(values[1])%60) : String(Int(values[1])%60))")
                             .font(.largeTitle)
                         

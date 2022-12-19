@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct TimerView: View {
     @EnvironmentObject var modelData: ModelData
@@ -17,8 +18,13 @@ struct TimerView: View {
     @State var flagRunning: Bool
     @State var flagPaused: Bool
     
+    @State var currentTimer: Int
+    @State var todayIndex: Int
+    
     @State private var showingAlert = false
-    @State var subjectSelector: Subject 
+    @State var subjectSelector: Int
+    @State var center: UNUserNotificationCenter
+    
 
     
     init() {
@@ -27,12 +33,20 @@ struct TimerView: View {
         self.flagRunning = false
         self.flagPaused = false
         self.showingAlert = false
-        self.subjectSelector = Subject(id: 100, name: "None", color: [0.96, 0.44, 0.5], studyDays: [], study: 25, relax: 5, total: 4, longRelax: 30)
+        self.subjectSelector = 0
         self.totalTime = 25*60
         self.timeArray = [0,Double(25*60)]
+        self.currentTimer = 0
+        self.todayIndex = 0
+        self.center = UNUserNotificationCenter.current()
     }
     
     func startTimer() {
+        
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            // handle the user's response
+        }
+
         
         if (flagPaused) {
             flagPaused = false
@@ -44,14 +58,77 @@ struct TimerView: View {
             flagRunning = true
         }
         
+        if (modelData.subjects[subjectSelector].studyDays.count == 0) {
+            modelData.subjects[subjectSelector].studyDays.append(StudyDay(today: Date(), study: 0, relax: 0))
+            todayIndex = 0
+        }
+        else if (Calendar.current.startOfDay(for: modelData.subjects[subjectSelector].studyDays[modelData.subjects[subjectSelector].studyDays.count-1].today) == Calendar.current.startOfDay(for: Date())) {
+            todayIndex = modelData.subjects[subjectSelector].studyDays.count-1
+        }
+        else {
+            modelData.subjects[subjectSelector].studyDays.append(StudyDay(today: Date(), study: 0, relax: 0))
+            todayIndex = modelData.subjects[subjectSelector].studyDays.count-1
+        }
+        
+        print(subjectSelector)
+        print(todayIndex)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "It'relax time"
+        content.body = "Have a coffee or sleep for a while"
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study), repeats: false)
+        let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
+        center.add(request) { (error) in
+           if let error = error {
+               print("Error scheduling notification: \(error)")
+           }
+        }
+                
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
             
             if (timeArray[1] < 2) {
-                flagFirstTime = true
-                flagRunning = false
-                timer?.invalidate()
+                let content = UNMutableNotificationContent()
+                
+                if (currentTimer == 0) {
+                    content.title = "Go back to study"
+                    content.body = "It's time to go back to work"
+                    timeArray = [0, Double(modelData.subjects[subjectSelector].relax*60)]
+                    totalTime = modelData.subjects[subjectSelector].relax
+                    currentTimer = 1
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(totalTime), repeats: false)
+                    let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
+                    
+                    center.add(request) { (error) in
+                       if let error = error {
+                           print("Error scheduling notification: \(error)")
+                       }
+                    }
+                }
+                else {
+                    content.title = "It'relax time"
+                    content.body = "Take a coffee or sleep for a while"
+                    timeArray = [0, Double(modelData.subjects[subjectSelector].study*60)]
+                    totalTime = modelData.subjects[subjectSelector].study
+                    currentTimer = 0
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(totalTime), repeats: false)
+                    let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
+                    
+                    center.add(request) { (error) in
+                       if let error = error {
+                           print("Error scheduling notification: \(error)")
+                       }
+                   }
+                }
             }
             
+            if (currentTimer == 0) {
+                modelData.subjects[subjectSelector].studyDays[todayIndex].study += 1
+                uploadSubjects(subjects: modelData.subjects)
+            }
+            else {
+                modelData.subjects[subjectSelector].studyDays[todayIndex].relax += 1
+                uploadSubjects(subjects: modelData.subjects)
+            }
                 timeArray[0] += 1
                 timeArray[1] -= 1
             })
@@ -89,7 +166,7 @@ struct TimerView: View {
                         .frame(width: 20, height: 20)
                         .foregroundColor(Color(red: 0.96, green: 0.44, blue: 0.5))
                     Text("None").font(.headline).bold()
-                } .tag(Subject(id: 100, name: "None", color: [0.96, 0.44, 0.5], studyDays: [], study: 25, relax: 5, total: 4, longRelax: 30))
+                } .tag(0)
                 
                 ForEach(modelData.subjects) { subject in
                         HStack {
@@ -97,18 +174,18 @@ struct TimerView: View {
                                 .frame(width: 20, height: 20)
                                 .foregroundColor(Color(red: subject.color[0], green: subject.color[1], blue: subject.color[2]))
                             Text(subject.name).font(.headline).bold()
-                        } .tag(subject)
+                        } .tag(subject.id)
                     
                 }
-            } .pickerStyle(.wheel)
+            } .pickerStyle(.wheel).disabled(flagRunning)
             
                 .onChange(of: subjectSelector) { subject in
-                    timeArray = [0, Double(subject.study*60)]
-                    totalTime = subject.study*60
+                    timeArray = [0, Double(modelData.subjects[subject].study*60)]
+                    totalTime = modelData.subjects[subject].study*60
                 }
             
             
-            PieChartView(values: timeArray, colors:  [Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]), Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]).opacity(0.5)], backgroundColor: Color.black, innerRadiusFraction: 0.95)
+            PieChartView(values: timeArray, currentTimer: currentTimer == 0 ? "Study" : "Relax", colors:  [Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]), Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]).opacity(0.5)], backgroundColor: Color.black, innerRadiusFraction: 0.95)
                 .padding(.leading, 75)
             
             
@@ -119,7 +196,7 @@ struct TimerView: View {
                             Image(systemName: "play.fill")
                         }
                         .padding()
-                            .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
+                            .background(Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]))
                             .foregroundColor(.black)
                             .clipShape(Capsule())
                     }
@@ -131,7 +208,7 @@ struct TimerView: View {
 
                         }
                         .padding()
-                            .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
+                            .background(Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]))
                             .foregroundColor(.black)
                             .clipShape(Capsule())
                     }
@@ -143,7 +220,7 @@ struct TimerView: View {
 
                     }
                     .padding()
-                        .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
+                        .background(Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]))
                         .foregroundColor(.black)
                         .clipShape(Capsule())
                 }
@@ -153,7 +230,7 @@ struct TimerView: View {
                         Image(systemName: "play.fill")
                     }
                     .padding()
-                        .background(Color(red: subjectSelector.color[0], green: subjectSelector.color[1], blue: subjectSelector.color[2]))
+                        .background(Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]))
                         .foregroundColor(.black)
                         .clipShape(Capsule())
                 }
