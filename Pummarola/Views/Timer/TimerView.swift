@@ -49,6 +49,10 @@ struct TimerView: View {
     
     func startTimer() {
         
+        if (subjectSelector == -1) {
+            Alert(title: Text("Create a Subject First!"), message: Text("Subjects >> Add Subject"), dismissButton: .default(Text("Ok")))
+        }
+        
         currentTimer = 0
         
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
@@ -160,21 +164,24 @@ struct TimerView: View {
             }
             
             Picker ("Subject", selection: $subjectSelector) {
-                HStack {
-                    Circle()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color(red: 0.96, green: 0.44, blue: 0.5))
-                    Text("None").font(.headline).bold()
-                } .tag(0)
-                
-                ForEach(modelData.subjects) { subject in
-                        HStack {
-                            Circle()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(Color(red: subject.color[0], green: subject.color[1], blue: subject.color[2]))
-                            Text(subject.name).font(.headline).bold()
-                        } .tag(subject.id)
-                    
+                if modelData.subjects.isEmpty {
+                    HStack {
+                        Circle()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color(red: 0.96, green: 0.44, blue: 0.5))
+                        Text("None").font(.headline).bold()
+                    } .tag(-1)
+                }
+                else {
+                    ForEach(modelData.subjects) { subject in
+                            HStack {
+                                Circle()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Color(red: subject.color[0], green: subject.color[1], blue: subject.color[2]))
+                                Text(subject.name).font(.headline).bold()
+                            } .tag(subject.id)
+                        
+                    }
                 }
             } .pickerStyle(.wheel).disabled(flagRunning)
             

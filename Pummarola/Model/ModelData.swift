@@ -14,7 +14,7 @@ final class ModelData: ObservableObject {
 func loadSubjects() -> [Subject] {
     
     if (UserDefaults(suiteName: "group.com.federicogerardi.Pummarola")!.string(forKey: "subjects") == nil) {
-        uploadSubjects(subjects: [Subject(id: 0, name: "None", color: [0.96, 0.44, 0.5], studyDays: [], study: 25, relax: 5, total: 4, longRelax: 30)])
+        uploadSubjects(subjects: [])
     }
     
     do {
