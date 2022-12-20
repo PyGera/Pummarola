@@ -54,3 +54,16 @@ struct LiveActivityLiveActivity: Widget {
     }
 }
 
+struct LockScreenLiveActivityView: View {
+    let context: ActivityViewContext<LiveActivityAttributes>
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            
+            Spacer()
+        }
+        .activitySystemActionForegroundColor(.indigo)
+        .activityBackgroundTint(.cyan)
+    }
+}
