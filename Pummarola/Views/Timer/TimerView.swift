@@ -13,7 +13,6 @@ struct TimerView: View {
     @State var totalTime: Int
     @State var timeArray: [Double]
     
-    @State var timer: Timer?
     @State var flagFirstTime: Bool
     @State var flagRunning: Bool
     @State var flagPaused: Bool
@@ -21,14 +20,18 @@ struct TimerView: View {
     @State var currentTimer: Int
     @State var todayIndex: Int
     
+    
     @State private var showingAlert = false
     @State var subjectSelector: Int
     @State var center: UNUserNotificationCenter
+    @State var queue: DispatchQueue
+    @State var secondPassed: Double
+    @State var timer: DispatchSourceTimer?
+    
     
 
     
     init() {
-        self.timer = nil
         self.flagFirstTime = true
         self.flagRunning = false
         self.flagPaused = false
@@ -39,23 +42,27 @@ struct TimerView: View {
         self.currentTimer = 0
         self.todayIndex = 0
         self.center = UNUserNotificationCenter.current()
+        self.queue = DispatchQueue(label: "group.com.federicogerardi.Pummarola")
+        self.secondPassed = 0.0
+        self.timer = nil
     }
     
     func startTimer() {
+        
+        currentTimer = 0
         
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             // handle the user's response
         }
 
         
-        if (flagPaused) {
-            flagPaused = false
-        }
+        
         
         if (flagFirstTime) {
             timeArray = [0, Double(totalTime)]
             flagFirstTime = false
             flagRunning = true
+            
         }
         
         if (modelData.subjects[subjectSelector].studyDays.count == 0) {
@@ -76,63 +83,64 @@ struct TimerView: View {
         let content = UNMutableNotificationContent()
         content.title = "It'relax time"
         content.body = "Have a coffee or sleep for a while"
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study*60), repeats: false)
         let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
         center.add(request) { (error) in
            if let error = error {
                print("Error scheduling notification: \(error)")
            }
         }
-                
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            
-            if (timeArray[1] < 2) {
-                let content = UNMutableNotificationContent()
-                
+        
+        var startTime = Date()
+        var endTime = Calendar.current.date(byAdding: .minute, value: Int(currentTimer == 1 ? Double(modelData.subjects[subjectSelector].relax) : Double(modelData.subjects[subjectSelector].study)),to: Date())!
+        
+        
+        timer = DispatchSource.makeTimerSource(queue: queue)
+        timer!.schedule(deadline: .now(), repeating: .seconds(1))
+        
+        
+        timer!.setEventHandler {
+            if (timeArray[1] < 1) {
                 if (currentTimer == 0) {
-                    content.title = "Go back to study"
-                    content.body = "It's time to go back to work"
-                    timeArray = [0, Double(modelData.subjects[subjectSelector].relax*60)]
-                    totalTime = modelData.subjects[subjectSelector].relax
                     currentTimer = 1
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(totalTime), repeats: false)
+                    let content = UNMutableNotificationContent()
+                    content.title = "Go back to study!"
+                    content.body = "It's time to work!"
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study*60), repeats: false)
                     let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
+                    center.add(request) { (error) in
+                        if let error = error {
+                            print("Error scheduling notification: \(error)")
+                        }
+                    }
                     
+                } else {
+                    currentTimer = 0
+                    let content = UNMutableNotificationContent()
+                    content.title = "It'relax time"
+                    content.body = "Have a coffee or sleep for a while"
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].relax*60), repeats: false)
+                    let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
                     center.add(request) { (error) in
                        if let error = error {
                            print("Error scheduling notification: \(error)")
                        }
                     }
                 }
-                else {
-                    content.title = "It'relax time"
-                    content.body = "Take a coffee or sleep for a while"
-                    timeArray = [0, Double(modelData.subjects[subjectSelector].study*60)]
-                    totalTime = modelData.subjects[subjectSelector].study
-                    currentTimer = 0
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(totalTime), repeats: false)
-                    let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
-                    
-                    center.add(request) { (error) in
-                       if let error = error {
-                           print("Error scheduling notification: \(error)")
-                       }
-                   }
-                }
+                
+                startTime = Date()
+                endTime = Calendar.current.date(byAdding: .minute, value: Int(currentTimer == 1 ? Double(modelData.subjects[subjectSelector].relax) : Double(modelData.subjects[subjectSelector].study)),to: Date())!
             }
             
-            if (currentTimer == 0) {
-                modelData.subjects[subjectSelector].studyDays[todayIndex].study += 1
-                uploadSubjects(subjects: modelData.subjects)
-            }
-            else {
-                modelData.subjects[subjectSelector].studyDays[todayIndex].relax += 1
-                uploadSubjects(subjects: modelData.subjects)
-            }
-                timeArray[0] += 1
-                timeArray[1] -= 1
-            })
+            
+            timeArray = [Date().timeIntervalSince(startTime), endTime.timeIntervalSince(Date())]
+            secondPassed = Date().timeIntervalSince(startTime)
+            
+            
+        }
         
+        
+        timer?.resume()
         
         
     }
@@ -140,18 +148,9 @@ struct TimerView: View {
     func stopTimer() {
         flagFirstTime = true
         flagRunning = false
-        timer?.invalidate()
-        
+        timer?.cancel()
+        center.removePendingNotificationRequests(withIdentifiers: ["timer"])
     }
-    
-    func pauseTimer() {
-        flagPaused = true
-        timer?.invalidate()
-        
-    }
-    
-    
-    
     
     var body: some View {
         VStack (alignment: .center) {
@@ -191,30 +190,6 @@ struct TimerView: View {
             
             HStack {
                 if flagRunning {
-                    if flagPaused {
-                        Button(action: startTimer) {
-                            Image(systemName: "play.fill")
-                        }
-                        .padding()
-                            .background(Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]))
-                            .foregroundColor(.black)
-                            .clipShape(Capsule())
-                    }
-                    
-                    
-                    else {
-                        Button(action: pauseTimer) {
-                            Image(systemName: "pause.fill")
-
-                        }
-                        .padding()
-                            .background(Color(red: modelData.subjects[subjectSelector].color[0], green: modelData.subjects[subjectSelector].color[1], blue: modelData.subjects[subjectSelector].color[2]))
-                            .foregroundColor(.black)
-                            .clipShape(Capsule())
-                    }
-                    
-                    
-                    
                     Button(action: stopTimer) {
                         Image(systemName: "stop.fill")
 
