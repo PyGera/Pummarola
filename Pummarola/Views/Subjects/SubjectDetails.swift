@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SubjectDetails: View {
     @EnvironmentObject var modelData: ModelData
-    var subject: Subject
+    @State var subject: Subject
     
     func deleteSubject() {
         modelData.subjects.remove(at: subject.id)
@@ -37,25 +37,49 @@ struct SubjectDetails: View {
                 HStack {
                     Text("Study hours today").font(.headline)
                     Spacer()
-                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in result += Double((day.study/60)/60)}) hours").font(.headline).foregroundColor(.accentColor)
+                    Text(
+                        subject.studyDays.count == 0 ? "0 seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.study) : 0 }) / 60.0) < 1 ? "\((subject.studyDays.reduce(into: 0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? d.study : 0 })) seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.study) : 0 }) / 3600.0) < 1 ? String(format: "%.2f minutes", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.study) : 0 }) / 60.0)) :
+                            String(format: "%.2f hours", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.study) : 0 }) / 3600.0))
+                            
+                    ).font(.headline).foregroundColor(.accentColor)
                 }
                 
                 HStack {
                     Text("Relax hours today").font(.headline)
                     Spacer()
-                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in if (Calendar.current.startOfDay(for: day.today) == Calendar.current.startOfDay(for: Date())) { result += Double((day.relax / 60)/60) }}) hours").font(.headline).foregroundColor(.accentColor)
+                    Text(
+                        subject.studyDays.count == 0 ? "0 seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.relax) : 0 }) / 60.0) < 1 ? "\((subject.studyDays.reduce(into: 0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? d.relax : 0 })) seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.relax) : 0 }) / 3600.0) < 1 ? String(format: "%.2f minutes", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.relax) : 0 }) / 60.0)) :
+                            String(format: "%.2f hours", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Calendar.current.startOfDay(for: d.today) == Calendar.current.startOfDay(for: Date()) ? Double(d.relax) : 0 }) / 3600.0))
+                            
+                    ).font(.headline).foregroundColor(.accentColor)
                 }
                 
                 HStack {
                     Text("Total study hours").font(.headline)
                     Spacer()
-                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in result += Double((day.study / 60)/60) }) hours").font(.headline).foregroundColor(.accentColor)
+                    Text(
+                        subject.studyDays.count == 0 ? "0 seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.study) }) / 60.0) < 1 ? "\((subject.studyDays.reduce(into: 0) { (r,d) in r += d.study })) seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.study) }) / 3600.0) < 1 ? String(format: "%.2f minutes", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.study) }) / 60.0)) :
+                            String(format: "%.2f hours", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.study) }) / 3600.0))
+                            
+                    ).font(.headline).foregroundColor(.accentColor)
                 }
                 
                 HStack {
                     Text("Total relax hours").font(.headline)
                     Spacer()
-                    Text("\(subject.studyDays.count == 0 ? 0 : subject.studyDays.reduce(into: 0.0) {(result, day) in result += Double((day.relax / 60)/60) }) hours").font(.headline).foregroundColor(.accentColor)
+                    Text(
+                        subject.studyDays.count == 0 ? "0 seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.relax) }) / 60.0) < 1 ? "\((subject.studyDays.reduce(into: 0) { (r,d) in r += d.relax })) seconds" :
+                            ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.relax) }) / 3600.0) < 1 ? String(format: "%.2f minutes", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.relax) }) / 60.0)) :
+                            String(format: "%.2f hours", ((subject.studyDays.reduce(into: 0.0) { (r,d) in r += Double(d.relax) }) / 3600.0))
+                            
+                    ).font(.headline).foregroundColor(.accentColor)
                 }
                 
                 Button(action: deleteSubject) {

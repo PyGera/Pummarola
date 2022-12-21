@@ -28,8 +28,9 @@ struct TimerView: View {
     @State var secondPassed: Double
     @State var timer: DispatchSourceTimer?
     
+    @State var secondsStudySession: Int
+    @State var secondsRelaxSession: Int
     
-
     
     init() {
         self.flagFirstTime = true
@@ -45,9 +46,13 @@ struct TimerView: View {
         self.queue = DispatchQueue(label: "group.com.federicogerardi.Pummarola")
         self.secondPassed = 0.0
         self.timer = nil
+        self.secondsStudySession = 0
+        self.secondsRelaxSession = 0
     }
     
     func startTimer() {
+        
+        
         
         if (subjectSelector == -1) {
             Alert(title: Text("Create a Subject First!"), message: Text("Subjects >> Add Subject"), dismissButton: .default(Text("Ok")))
@@ -58,9 +63,6 @@ struct TimerView: View {
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             // handle the user's response
         }
-
-        
-        
         
         if (flagFirstTime) {
             timeArray = [0, Double(totalTime)]
@@ -132,10 +134,19 @@ struct TimerView: View {
                     }
                 }
                 
+                
+                
                 startTime = Date()
                 endTime = Calendar.current.date(byAdding: .minute, value: Int(currentTimer == 1 ? Double(modelData.subjects[subjectSelector].relax) : Double(modelData.subjects[subjectSelector].study)),to: Date())!
             }
             
+            if (currentTimer == 0) {
+                secondsStudySession += 1
+            }
+            
+            else {
+                secondsRelaxSession += 1
+            }
             
             timeArray = [Date().timeIntervalSince(startTime), endTime.timeIntervalSince(Date())]
             secondPassed = Date().timeIntervalSince(startTime)
@@ -154,6 +165,19 @@ struct TimerView: View {
         flagRunning = false
         timer?.cancel()
         center.removePendingNotificationRequests(withIdentifiers: ["timer"])
+        
+        modelData.subjects[subjectSelector].studyDays[todayIndex].study += secondsStudySession
+        modelData.subjects[subjectSelector].studyDays[todayIndex].relax += secondsRelaxSession
+        
+        uploadSubjects(subjects: modelData.subjects)
+        
+        print(modelData.subjects[subjectSelector].studyDays[todayIndex].study)
+        print(modelData.subjects[subjectSelector].studyDays[todayIndex].relax)
+        
+        
+        
+        secondsStudySession = 0
+        secondsRelaxSession = 0
     }
     
     var body: some View {
