@@ -14,14 +14,12 @@ struct SubjectCreate: View {
     @State var name: String = ""
     @State var study: String = ""
     @State var relax: String = ""
-    @State var longRelax: String = ""
-    @State var sessions: String = ""
     @State var selectedColor: Color = Color(red: 0, green: 0, blue: 0)
     
     func addSubject() {
         print(selectedColor)
         
-        modelData.subjects.append(Subject(id: modelData.subjects.count, name: name, color: [Double(UIColor(selectedColor).red), Double(UIColor(selectedColor).green), Double(UIColor(selectedColor).blue)], studyDays: [], study: Int(study)!, relax: Int(relax)!, total: Int(sessions)!, longRelax: Int(longRelax)!))
+        modelData.subjects.append(Subject(id: modelData.subjects.count, name: name, color: [Double(UIColor(selectedColor).red), Double(UIColor(selectedColor).green), Double(UIColor(selectedColor).blue)], studyDays: [], study: Int(study)!, relax: Int(relax)!))
         
         uploadSubjects(subjects: modelData.subjects)
     }
@@ -41,13 +39,6 @@ struct SubjectCreate: View {
                     .keyboardType(.numberPad)
                     .bold()
                 
-                TextField("Minutes of long relax", text: $longRelax)
-                    .keyboardType(.numberPad)
-                    .bold()
-                
-                TextField("Number of session", text: $sessions)
-                    .keyboardType(.numberPad)
-                    .bold()
                 
                 VStack (alignment: .leading) {
                     Text("Color").bold()
