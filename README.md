@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="assets/PummarolaICON.png" class="logo" width='100px' />
+    <img src="assets/PummarollaICON.png" class="logo" width='100px' />
     <h1>Pummarola 🍅⏱️</h1>
     <strong>A simple Pomodoro Timer Free and Open Source for iOS</strong>
     <h6>Made with ❤️ by me</h6>
