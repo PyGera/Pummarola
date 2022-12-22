@@ -30,6 +30,7 @@ struct TimerView: View {
     
     @State var secondsStudySession: Int
     @State var secondsRelaxSession: Int
+    @State var sessions: Int
     
     
     init() {
@@ -48,11 +49,12 @@ struct TimerView: View {
         self.timer = nil
         self.secondsStudySession = 0
         self.secondsRelaxSession = 0
+        self.sessions = 0
     }
     
     func startTimer() {
         
-        
+        sessions = 0
         
         if (subjectSelector == -1) {
             Alert(title: Text("Create a Subject First!"), message: Text("Subjects >> Add Subject"), dismissButton: .default(Text("Ok")))
@@ -112,7 +114,7 @@ struct TimerView: View {
                     let content = UNMutableNotificationContent()
                     content.title = "Go back to study!"
                     content.body = "It's time to work!"
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study*60), repeats: false)
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].relax*60), repeats: false)
                     let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
                     center.add(request) { (error) in
                         if let error = error {
@@ -125,13 +127,14 @@ struct TimerView: View {
                     let content = UNMutableNotificationContent()
                     content.title = "It'relax time"
                     content.body = "Have a coffee or sleep for a while"
-                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].relax*60), repeats: false)
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(modelData.subjects[subjectSelector].study*60), repeats: false)
                     let request = UNNotificationRequest(identifier: "timer", content: content, trigger: trigger)
                     center.add(request) { (error) in
                        if let error = error {
                            print("Error scheduling notification: \(error)")
                        }
                     }
+                    sessions += 1
                 }
                 
                 
@@ -141,16 +144,18 @@ struct TimerView: View {
             }
             
             if (currentTimer == 0) {
-                secondsStudySession += 1
+                secondsStudySession = (sessions*modelData.subjects[subjectSelector].study*60) + Int(Date().timeIntervalSince(startTime))
             }
             
             else {
-                secondsRelaxSession += 1
+                secondsRelaxSession = (sessions*modelData.subjects[subjectSelector].relax*60) + Int(Date().timeIntervalSince(startTime))
             }
             
             timeArray = [Date().timeIntervalSince(startTime), endTime.timeIntervalSince(Date())]
             secondPassed = Date().timeIntervalSince(startTime)
             
+            
+            print("study: \(secondsStudySession), relax: \(secondsRelaxSession)")
             
         }
         
